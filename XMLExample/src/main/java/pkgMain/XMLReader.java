@@ -1,6 +1,9 @@
 package pkgMain;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -8,6 +11,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import pkgLibrary.Book;
+import pkgLibrary.BookExceptionC;
 import pkgLibrary.Catalog;
 
 public class XMLReader {
@@ -22,17 +26,21 @@ public class XMLReader {
 		//	Increase the price of each book
 		IncreasePrice(cat,0.10);
 		
+		for (Book b : cat.getBooks()) 
+		{			
+			double p = b.getPrice();
+			b.setCost((Math.round((p*.8) * 100.0) / 100.0));
+		}
+		
 		//	Write the XML file from 'cat' object
 		WriteXMLFile(cat);
 		
 	}
-
-
-	
+		
 	
 	private static Catalog ReadCatalog() {
 		Catalog cat = ReadXMLFile();
-		
+				
 		System.out.println("cat ID " + cat.getId());
 		System.out.println("Book count: " + cat.getBooks().size());
 

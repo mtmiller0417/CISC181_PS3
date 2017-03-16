@@ -1,10 +1,14 @@
 package pkgLibrary;
 
+import java.util.ArrayList;
+
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.io.IOException;
 
 public class Book {
 
@@ -15,8 +19,10 @@ public class Book {
 	private double price;
 	private Date publish_date;
 	private String description;
+	private double cost = price *.8;
 
 	public Book() {
+		
 
 	}
 
@@ -30,8 +36,9 @@ public class Book {
 		this.price = price;
 		this.publish_date = publish_date;
 		this.description = description;
-	}
-	
+		this.cost = Math.round((price*.8)*100.0)/100.0;
+	}	
+
  
 
 	public String getId() {
@@ -97,7 +104,13 @@ public class Book {
 		this.description = description;
 	}
 
-	
-	
+	public double getCost() {
+		return cost;
+	}
 
+	@XmlElement
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+	
 }
